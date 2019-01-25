@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map, _navi;
+        var fmapID = '10347';
+        var _startPos, _destPos;
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0',
+                defaultVisibleGroups: [1, 2, 3, 4, 5, 6],
+                focusAlphaMode: false
+            });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+
+            _map.on('loadComplete', function (event) {
+                _navi = new fengmap.FMNavigation({
+                    map: _map,
+                    speed: 10,
+                    followPosition: false,
+                    followAngle: false,
+                    changeTiltAngle: false,
+                    scaleLevel: 1,
+                    offsetHeight: 3,
+                    lineStyle: {
+                        /* 访问 https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMLineType.html 获取更多线要素形状*/
+                        lineType: fengmap.FMLineType.FMARROW,
+                        lineWidth: 6
+                    }
+                });
+            });
+
+            _map.on('mapClickNode', function (event) {
+                if (event.nodeType === fengmap.FMNodeType.MODEL) {
+                    if (!_startPos) {
+                        _startPos = { x: event.x, y: event.y, groupID: event.groupID }
+                    } else {
+                        _destPos = { x: event.x, y: event.y, groupID: event.groupID }
+                    }
+
+                    if (_startPos && _destPos) {
+                        _navi.clearAll();
+                        _navi.setStartPoint(_startPos);
+                        _navi.setEndPoint(_destPos);
+                        _navi.drawNaviLine();
+                        resetStartPos();
+                    }
+                }
+            });
+        }
+
+        function resetStartPos() {
+            _startPos = null;
+            _destPos = null;
+        }
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var fmapID = '10347';
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0',
+                /* 设置地图的默认背景色 */
+                defaultBackgroundColor: 0x00ff00,
+                /* 设置地图的默认背景色的透明度 */
+                defaultBackgroundAlpha: 0.5
+            });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+
+            _map.on('loadComplete', function (event) {
+                //地图加载完成后改变背景颜色
+                _map.setBackgroundColor(0xff0000, 0.5);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>

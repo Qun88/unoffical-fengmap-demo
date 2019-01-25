@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var fmapID = '10347';
+        var themeID = 2002;
+        window.onload = function () {
+
+            var _option = {
+                /* 必要，地图容器 */
+                container: document.getElementById('fengmap'),
+                /* 必要，地图应用名称，通过蜂鸟云后台创建 */
+                appName: '蜂鸟研发SDK_2_0',
+                /* 必要，地图应用密钥，通过蜂鸟云后台获取 */
+                key: '57c7f309aca507497d028a9c00207cf8',
+                /* 指定地图数据的Url地址，默认不添加这个启动参数会自动从蜂鸟云账户下获取指定的地图数据 */
+                mapServerURL: '../../Data/',
+                /* 指定地图主题文件的Url地址 ，默认不添加这个启动参数会自动从蜂鸟云获取指定的地图主题 */
+                mapThemeURL: '../../Data/Theme/',
+                /* 默认使用的主题名称，在不设置的情况下，默认使用名称为 2001 的主题，如果配置了地图主题文件的 Url 地址，请根据实际情况设置默认的主题名称 */
+                defaultThemeName: themeID
+            };
+
+            _map = new fengmap.FMMap(_option);
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>

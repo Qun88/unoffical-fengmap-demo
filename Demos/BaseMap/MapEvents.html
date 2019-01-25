@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var fmapID = '10347';
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0',
+                //开启地图悬停事件时的显示效果
+                modelHoverEffect: true,
+                //设置悬停判定的时间，单位 ms
+                modelHoverTime: 100,
+            });
+
+            //地图全部加载完成后的事件
+            _map.on('loadComplete', function (event) {
+                //开启地图悬停事件
+                _map.gestureEnableController.enableMapHover = true;
+                console.info('地图加载完成', event);
+            });
+            //地图点击事件
+            _map.on('mapClickNode', function (event) { console.info('点击地图', event); });
+            //地图悬停事件
+            _map.on('mapHoverNode', function (event) { console.info('地图悬停', event); });
+            //地图比例尺等级改变事件，当地图比例尺等级发生改变时触发
+            _map.on('mapScaleLevelChanged', function (event) { console.info('比例尺等级改变', event); });
+            //当前可见楼层变化时触发
+            _map.on('visibleGroupIDsChanged', function (event) { console.info('可见楼层改变', event); });
+            //当前地图的缩放等级改变事件，当前地图的缩放等级发生改变时触发
+            _map.on('scaleLevelChanged', function (event) { console.info('缩放等级改变', event); });
+            //当前的焦点楼层改变事件，焦点楼层改变（楼层切换）时触发
+            _map.on('focusGroupIDChanged', function (event) { console.info('改变楼层', event); });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>

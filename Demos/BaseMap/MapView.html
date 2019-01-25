@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var fmapID = '10347';
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0'
+            });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+        }
+
+        //改变地图比例尺等级,0-29级
+        function changeMapScaleLevel() {
+            if (_map) {
+                _map.mapScaleLevel += 1;
+                return _map.mapScaleLevel;
+            }
+        }
+        //改变地图的旋转角度
+        function changeMapRotateAngle() {
+            if (_map) {
+                _map.rotateAngle += 10;
+                return _map.rotateAngle;
+            }
+        }
+        //改变地图的倾斜角度
+        function changeMapTitleAngle() {
+            if (_map) {
+                _map.tiltAngle += 1;
+                return _map.tiltAngle;
+            }
+        }
+        //改变地图的显示模式 2D/3D
+        function changeMapViewMode() {
+            if (_map) {
+                switch (_map.viewMode) {
+                    case '3d':
+                        _map.viewMode = '2d';
+                        break;
+                    case '2d':
+                        _map.viewMode = '3d';
+                        break;
+                }
+                return _map.viewMode;
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>
