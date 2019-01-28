@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var fmapID = '10347';
+        
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0'
+            });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+        }
+
+        function searchByKeywords(keyword) {
+            search({
+                nodeType: fengmap.FMNodeType.MODEL,
+                keyword: keyword
+            });
+        }
+
+        function search(option) {
+            console.log(option);
+            /* _map.focusGroupID 为只搜索当前楼层，如果要搜索所有楼层可以使用 'all' */
+            fengmap.MapUtil.search(_map, _map.focusGroupID, option, function (result) {
+                var mapObjects = result;
+                if (!mapObjects || mapObjects.length == 0) {
+                    console.info("没有搜索到匹配的记录");
+                }
+                else {
+                    for (let index = 0; index < mapObjects.length; index++) {
+                        console.info("搜索到%s条记录", mapObjects.length);
+                        const element = mapObjects[index];
+                        console.log(element);
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>
