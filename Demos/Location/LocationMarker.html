@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Style/style.css">
+    <!-- 模拟的定位SDK -->
+    <script src="../../Libs/locSDK.js"></script>
+    <script src="../../Libs/fengmap.min.js"></script>
+    <script>
+        var _map;
+        var mapIsOk = false;
+        var fmapID = '10347';
+        var locationMarker;
+
+        window.onload = function () {
+            _map = new fengmap.FMMap({
+                container: document.getElementById('fengmap'),
+                key: '57c7f309aca507497d028a9c00207cf8',
+                appName: '蜂鸟研发SDK_2_0'
+            });
+
+            _map.openMapById(fmapID, function (error) {
+                console.error(error);
+            });
+
+            _map.on('loadComplete', function (event) {
+                mapIsOk = true;
+                console.info('地图加载完成', event);
+            });
+        }
+
+        /* 
+        这个方法是示例的定位sdk回调，实际根据使用的定位sdk不同，接口名称和方式可能会有差异
+        */
+        updateLocation(function (data) {
+            if (mapIsOk) {
+                if (!locationMarker) {
+                    locationMarker = new fengmap.FMLocationMarker({
+                        x: data.x,
+                        y: data.y,
+                        url: '../../Images/location.png',
+                        size: 48,
+                        height: 1.5,
+                    });
+                    _map.addLocationMarker(locationMarker);
+                } else {
+                    locationMarker.moveTo({ x: data.x, y: data.y, groupID: 1 });
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id='fengmap'></div>
+</body>
+
+</html>
