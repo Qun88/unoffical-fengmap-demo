@@ -11,6 +11,7 @@
     <script>
         var _map;
         var fmapID = '10347';
+
         window.onload = function () {
             _map = new fengmap.FMMap({
                 container: document.getElementById('fengmap'),
@@ -21,7 +22,33 @@
             _map.openMapById(fmapID, function (error) {
                 console.error(error);
             });
+
+            _map.on('loadComplete', function (event) {
+                createInfoWindow();
+                console.info('地图加载完成', event);
+            });
         }
+
+        function createInfoWindow() {
+            /* 自定义信息窗体的样式请参考 Sylte 目录下的 style.css */
+            let option = new fengmap.controlOptions({
+                mapCoord: {
+                    x: _map.center.x,
+                    y: _map.center.y,
+                    height: 3,
+                    groupID: 1
+                },
+                width: 200,
+                height: 100,
+                content: '<a target="_bank" href="https://www.fengmap.com">这是一个信息框</a>',
+                closeCallBack: function () {
+                    console.info("关闭信息窗");
+                }
+            });
+
+            var infoWindow = new fengmap.FMPopInfoWindow(_map, option);
+        }
+
     </script>
 </head>
 

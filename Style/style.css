@@ -13,3 +13,20 @@ body {
     margin: 0;
     overflow: hidden;
 }
+
+/* 在以下样式中可以自定义弹出气泡框的样式 */
+
+/* InfoWindow 下三角的样式 */
+.fm-control-popmarker-bot {
+    border-width: 20px 10px !important;
+}
+
+/* InfoWindow 下三角阴影的样式 */
+.fm-control-popmarker-top {
+    border-width: 20px 10px !important;
+}
+
+/* InfoWindow 窗口的样式 */
+.fm-control-popmarker {
+    border-radius: 0px !important;
+}
